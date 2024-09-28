@@ -1,9 +1,8 @@
 import { Router } from "express";
+import autenticacaoRouter from "./autenticacao.route";
 
 const router = Router({});
 
-router.get("/", (req, res) => {
-  return res.json({ text: "ola" });
-});
+router.use("/autenticacao", autenticacaoRouter);
 
 export { router };
