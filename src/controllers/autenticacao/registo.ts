@@ -1,4 +1,5 @@
 import IFieldError from "../../@types/field-error";
+import { IRegistoService } from "../../services/autenticacao/Registo.service";
 
 export interface IRegistoRequest {
   contacto: string;
@@ -15,14 +16,17 @@ export interface IRegistoResponse {
 }
 
 class RegistoController {
-  public constructor(private readonly service: any) {}
+  public constructor(private readonly service: IRegistoService) {}
 
   /**
    * execute
    */
-  public execute(data: IRegistoRequest): IRegistoResponse {
+  public async execute(data: IRegistoRequest): Promise<IRegistoResponse> {
+    const user = this.service.registar(data);
+
     return {
       statusMessage: "OK",
+      user,
     };
   }
 }
