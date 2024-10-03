@@ -5,13 +5,22 @@ import {
   IRecuperaSenhaRequest,
   IRecuperaSenhaSolicitacaoRequest,
 } from "../../controllers/autenticacao/recupera-senha";
+import { ILoginRequest } from "../../controllers/autenticacao/login";
 
 const autenticacaoRouter = Router();
 
-autenticacaoRouter.post("/cria-conta", (req, res) => {
+autenticacaoRouter.post("/cria-conta", async (req, res) => {
   const data: IRegistoRequest = req.body;
 
-  const resposta = autenticacao.registoController.execute(data);
+  const resposta = await autenticacao.registoController.execute(data);
+
+  return res.json(resposta);
+});
+
+autenticacaoRouter.post("/entrar", async (req, res) => {
+  const data: ILoginRequest = req.body;
+
+  const resposta = await autenticacao.loginController.execute(data);
 
   return res.json(resposta);
 });

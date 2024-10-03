@@ -1,3 +1,5 @@
+import LoginService from "../../services/autenticacao/Login.service";
+import LoginModel from "../../services/autenticacao/model/Login.model";
 import RegistoModel from "../../services/autenticacao/model/Registo.model";
 import RegistoService from "../../services/autenticacao/Registo.service";
 import AlterarSenhaController from "./alterar-senha";
@@ -9,10 +11,13 @@ const service = {};
 
 const recuperaSenhaController = new RecuperaSenhaController(service);
 
+// registo do usuário
 const registoService = new RegistoService(new RegistoModel());
 const registoController = new RegistoController(registoService);
 
-const loginController = new LoginController(service);
+// login do usuário
+const loginService = new LoginService(new LoginModel());
+const loginController = new LoginController(loginService);
 
 const alterarSenhaController = new AlterarSenhaController(service);
 
