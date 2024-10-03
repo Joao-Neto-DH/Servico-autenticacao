@@ -1,7 +1,5 @@
-import { ILoginRequest } from "../../../controllers/autenticacao/login";
-
 interface ILoginModel {
-  getUsuarioPeloContacto(usuario: ILoginRequest): Promise<IUsuario | undefined>;
+  getUsuarioPeloContacto(usuario: string): Promise<IUsuario | undefined>;
 }
 
 export interface IUsuario {

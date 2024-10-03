@@ -7,7 +7,7 @@ class LoginService {
   constructor(private readonly model: ILoginModel) {}
 
   async logar(usuario: ILoginRequest): Promise<IUsuario | undefined> {
-    const user = await this.model.getUsuarioPeloContacto(usuario);
+    const user = await this.model.getUsuarioPeloContacto(usuario.contacto);
 
     if (user) {
       const isCorrectPassword = checkPassword(user.senha, usuario.senha);

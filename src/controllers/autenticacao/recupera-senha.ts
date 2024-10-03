@@ -1,4 +1,5 @@
 import IFieldError from "../../@types/field-error";
+import RecuperaSenhaService from "../../services/autenticacao/RecuperaSenha.service";
 
 export interface IRecuperaSenhaSolicitacaoRequest {
   contacto: string;
@@ -15,26 +16,35 @@ export interface IRecuperaSenhaResponse {
 }
 
 class RecuperaSenhaController {
-  public constructor(private readonly service: any) {}
+  public constructor(private readonly service: RecuperaSenhaService) {}
 
   /**
    * solitacao
    */
-  public solitacao(
+  public async solitacao(
     data: IRecuperaSenhaSolicitacaoRequest
-  ): IRecuperaSenhaResponse {
-    // 1- verificar contacto existente
-    // 2- gerar e enviar link de recuperação
-    return { statusMessage: "OK" };
+  ): Promise<IRecuperaSenhaResponse> {
+    const result = await this.service.salvarRecuperacaoSenha(data.contacto);
+    return {
+      statusMessage: result ? "OK" : "ERROR",
+      erro: result
+        ? undefined
+        : `O contacto ${data.contacto} não está associado a nenhuma conta`,
+    };
   }
 
   /**
    * execute
    */
-  public execute(data: IRecuperaSenhaRequest): IRecuperaSenhaResponse {
-    // 1- alterar senha
-    // 2- devolver conta do usuário
-    return { statusMessage: "OK" };
+  public async execute(
+    data: IRecuperaSenhaRequest,
+    token: string
+  ): Promise<IRecuperaSenhaResponse> {
+    const result = await this.service.recuperarSenha(token, data.senha);
+    return {
+      statusMessage: result ? "OK" : "ERROR",
+      erro: "Não foi possível recuperar a conta",
+    };
   }
 }
 

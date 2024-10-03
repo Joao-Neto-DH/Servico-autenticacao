@@ -1,5 +1,6 @@
 import { IRegistoRequest } from "../../controllers/autenticacao/registo";
 import AppError from "../../helpers/app-error";
+import { encriptarSenha } from "../../helpers/encriptar-senha";
 import IRegistoModel, { IUsuario } from "./model/IRegisto.model";
 
 export interface IRegistoService {
@@ -22,7 +23,12 @@ class RegistoService {
       );
     }
 
-    const newUsuario = await this.model.registarUsuario(usuario);
+    const senhaEncriptada = encriptarSenha(usuario.senha);
+
+    const newUsuario = await this.model.registarUsuario({
+      ...usuario,
+      senha: senhaEncriptada,
+    });
 
     return newUsuario;
   }

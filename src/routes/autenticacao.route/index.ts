@@ -25,22 +25,29 @@ autenticacaoRouter.post("/entrar", async (req, res) => {
   return res.json(resposta);
 });
 
-autenticacaoRouter.get("/recupera-senha/:contacto", (req, res) => {
+autenticacaoRouter.get("/recupera-senha/:contacto", async (req, res) => {
   const data: IRecuperaSenhaSolicitacaoRequest = {
     contacto: req.params.contacto,
   };
 
-  const resposta = autenticacao.recuperaSenhaController.solitacao(data);
+  const resposta = await autenticacao.recuperaSenhaController.solitacao(data);
 
   return res.json(resposta);
 });
 
-autenticacaoRouter.patch("/recupera-senha/nova-senha/:token", (req, res) => {
-  const data: IRecuperaSenhaRequest = req.body;
+autenticacaoRouter.patch(
+  "/recupera-senha/nova-senha/:token",
+  async (req, res) => {
+    const data: IRecuperaSenhaRequest = req.body;
+    const { token } = req.params;
 
-  const resposta = autenticacao.recuperaSenhaController.execute(data);
+    const resposta = await autenticacao.recuperaSenhaController.execute(
+      data,
+      token
+    );
 
-  return res.json(resposta);
-});
+    return res.json(resposta);
+  }
+);
 
 export default autenticacaoRouter;
