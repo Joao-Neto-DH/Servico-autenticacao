@@ -1,6 +1,9 @@
+import bcrypt from "bcrypt";
+
 export function checkPassword(
   encryptedPassword: string,
   loginPassword: string
 ) {
-  return encryptedPassword === loginPassword;
+  const passwordMatch = bcrypt.compareSync(loginPassword, encryptedPassword);
+  return passwordMatch;
 }
