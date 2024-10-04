@@ -1,3 +1,8 @@
+import bcrypt from "bcrypt";
+
 export function encriptarSenha(senha: string) {
-  return senha;
+  const saltRounds = 10;
+
+  const encryptedSenha = bcrypt.hashSync(senha, saltRounds);
+  return encryptedSenha;
 }
