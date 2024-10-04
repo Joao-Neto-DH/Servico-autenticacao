@@ -1,6 +1,8 @@
-import { describe, expect, test } from "@jest/globals";
+import { describe, expect, test, beforeAll, afterAll } from "@jest/globals";
 import { encriptarSenha } from "../src/helpers/encriptar-senha";
 import { checkPassword } from "../src/helpers/check-password";
+import { gerarTokenRecuperacaoSenha } from "../src/helpers/token-recuperacao-senha";
+import { config } from "dotenv";
 
 describe("Funções de helpers", () => {
   test("encriptar senha", () => {
@@ -18,4 +20,32 @@ describe("Funções de helpers", () => {
 
     expect(passwordMatch).toBeTruthy();
   });
+});
+
+describe("Funções de helpers de recuperação de senha", () => {
+  const email = "joao@email.com";
+  let token = "";
+
+  beforeAll(async () => {
+    config();
+
+    token = await gerarTokenRecuperacaoSenha(email);
+  });
+
+  afterAll(() => {
+    console.log("TOKEN:", token);
+  });
+
+  test("Gerar token", async () => {
+    expect(token).not.toEqual(email);
+  });
+
+  // test("hash válido", () => {
+  //   const senha = "12345678";
+  //   const encryptedSenha = encriptarSenha(senha);
+
+  //   const passwordMatch = checkPassword(encryptedSenha, senha);
+
+  //   expect(passwordMatch).toBeTruthy();
+  // });
 });
