@@ -1,3 +1,4 @@
+import { modelLogin } from ".";
 import { encriptarSenha } from "../../helpers/encriptar-senha";
 import {
   calcularValidadeDoToken,
@@ -6,7 +7,6 @@ import {
   gerarTokenRecuperacaoSenha,
 } from "../../helpers/token-recuperacao-senha";
 import IRecuperacaoSenhaModel from "./model/IRecuperacaoSenha.model";
-import LoginModel from "./model/Login.model";
 
 class RecuperaSenhaService {
   constructor(private readonly model: IRecuperacaoSenhaModel) {}
@@ -15,8 +15,6 @@ class RecuperaSenhaService {
    * salvarRecuperacaoSenha
    */
   public async salvarRecuperacaoSenha(usuarioContacto: string) {
-    const modelLogin = new LoginModel();
-
     const usuarioExiste = await modelLogin.getUsuarioPeloContacto(
       usuarioContacto
     );
