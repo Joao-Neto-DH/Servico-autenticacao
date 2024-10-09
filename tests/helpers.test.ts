@@ -60,14 +60,14 @@ describe("Funções de helpers de recuperação de senha", () => {
     expect(diff).toEqual(1);
   });
 
-  test("Validade do token válido", async () => {
+  test("Validade do token válido", () => {
     const tokenValidate = calcularValidadeDoToken();
     const isNotExpired = checkIsTokenValido(tokenValidate);
 
     expect(isNotExpired).toBeTruthy();
   });
 
-  test("Validade do token expirado", async () => {
+  test("Validade do token expirado", () => {
     const tokenValidate = dayjs().subtract(2, "hour").toDate();
     const isExpired = checkIsTokenValido(tokenValidate);
 
