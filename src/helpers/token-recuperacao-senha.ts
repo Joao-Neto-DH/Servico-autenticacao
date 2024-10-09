@@ -5,6 +5,7 @@ import {
   scryptSync,
 } from "node:crypto";
 import dayjs from "dayjs";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import { envConfig } from "../config/env-config";
 
 export function gerarTokenRecuperacaoSenha(usuarioContacto: string) {
@@ -61,7 +62,11 @@ export function calcularValidadeDoToken() {
 }
 
 export function checkIsTokenValido(dataExpiracao: Date) {
-  return true;
+  const expirationDate = dayjs(dataExpiracao);
+  dayjs.extend(isSameOrAfter);
+
+  const isExpiredToken = dayjs().isAfter(expirationDate);
+  return isExpiredToken;
 }
 
 export function extrairContactoDoToken(token: string) {

@@ -3,10 +3,12 @@ import { encriptarSenha } from "../src/helpers/encriptar-senha";
 import { checkPassword } from "../src/helpers/check-password";
 import {
   calcularValidadeDoToken,
+  checkIsTokenValido,
   extrairContactoDoToken,
   gerarTokenRecuperacaoSenha,
 } from "../src/helpers/token-recuperacao-senha";
 import { config } from "dotenv";
+import dayjs from "dayjs";
 
 describe("Funções de helpers", () => {
   test("encriptar senha", () => {
@@ -40,7 +42,7 @@ describe("Funções de helpers de recuperação de senha", () => {
     console.log("TOKEN:", token);
   });
 
-  test("Gerar token", async () => {
+  test("Gerar token", () => {
     expect(token).not.toEqual(email);
   });
 
@@ -49,12 +51,26 @@ describe("Funções de helpers de recuperação de senha", () => {
     expect(decrypted).toEqual(email);
   });
 
-  test("Tempo de validade do token em uma hora", async () => {
+  test("Tempo de validade do token em uma hora", () => {
     const currentDate = new Date();
     const calculatedDate = calcularValidadeDoToken();
 
     const diff = Math.abs(currentDate.getHours() - calculatedDate.getHours());
 
     expect(diff).toEqual(1);
+  });
+
+  test("Validade do token válido", async () => {
+    const tokenValidate = calcularValidadeDoToken();
+    const isNotExpired = checkIsTokenValido(tokenValidate);
+
+    expect(isNotExpired).toBeTruthy();
+  });
+
+  test("Validade do token expirado", async () => {
+    const tokenValidate = dayjs().subtract(2, "hour").toDate();
+    const isExpired = checkIsTokenValido(tokenValidate);
+
+    expect(isExpired).toBeFalsy();
   });
 });
