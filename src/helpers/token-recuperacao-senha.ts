@@ -4,6 +4,7 @@ import {
   randomBytes,
   scryptSync,
 } from "node:crypto";
+import dayjs from "dayjs";
 import { envConfig } from "../config/env-config";
 
 export function gerarTokenRecuperacaoSenha(usuarioContacto: string) {
@@ -54,7 +55,9 @@ export function gerarTokenRecuperacaoSenha(usuarioContacto: string) {
 }
 
 export function calcularValidadeDoToken() {
-  return new Date();
+  const currentDate = dayjs();
+  const currentDatePlusOneHour = currentDate.add(1, "hour");
+  return currentDatePlusOneHour.toDate();
 }
 
 export function checkIsTokenValido(dataExpiracao: Date) {

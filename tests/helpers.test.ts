@@ -2,6 +2,7 @@ import { describe, expect, test, beforeAll, afterAll } from "@jest/globals";
 import { encriptarSenha } from "../src/helpers/encriptar-senha";
 import { checkPassword } from "../src/helpers/check-password";
 import {
+  calcularValidadeDoToken,
   extrairContactoDoToken,
   gerarTokenRecuperacaoSenha,
 } from "../src/helpers/token-recuperacao-senha";
@@ -48,12 +49,12 @@ describe("Funções de helpers de recuperação de senha", () => {
     expect(decrypted).toEqual(email);
   });
 
-  // test("hash válido", () => {
-  //   const senha = "12345678";
-  //   const encryptedSenha = encriptarSenha(senha);
+  test("Tempo de validade do token em uma hora", async () => {
+    const currentDate = new Date();
+    const calculatedDate = calcularValidadeDoToken();
 
-  //   const passwordMatch = checkPassword(encryptedSenha, senha);
+    const diff = Math.abs(currentDate.getHours() - calculatedDate.getHours());
 
-  //   expect(passwordMatch).toBeTruthy();
-  // });
+    expect(diff).toEqual(1);
+  });
 });
