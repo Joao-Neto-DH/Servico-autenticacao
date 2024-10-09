@@ -2,8 +2,6 @@ import {
   createCipheriv,
   createDecipheriv,
   randomBytes,
-  randomFill,
-  scrypt,
   scryptSync,
 } from "node:crypto";
 import { envConfig } from "../config/env-config";
