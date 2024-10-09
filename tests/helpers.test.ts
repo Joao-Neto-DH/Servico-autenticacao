@@ -1,7 +1,10 @@
 import { describe, expect, test, beforeAll, afterAll } from "@jest/globals";
 import { encriptarSenha } from "../src/helpers/encriptar-senha";
 import { checkPassword } from "../src/helpers/check-password";
-import { gerarTokenRecuperacaoSenha } from "../src/helpers/token-recuperacao-senha";
+import {
+  extrairContactoDoToken,
+  gerarTokenRecuperacaoSenha,
+} from "../src/helpers/token-recuperacao-senha";
 import { config } from "dotenv";
 
 describe("Funções de helpers", () => {
@@ -26,10 +29,10 @@ describe("Funções de helpers de recuperação de senha", () => {
   const email = "joao@email.com";
   let token = "";
 
-  beforeAll(async () => {
+  beforeAll(() => {
     config();
 
-    token = await gerarTokenRecuperacaoSenha(email);
+    token = gerarTokenRecuperacaoSenha(email);
   });
 
   afterAll(() => {
@@ -38,6 +41,11 @@ describe("Funções de helpers de recuperação de senha", () => {
 
   test("Gerar token", async () => {
     expect(token).not.toEqual(email);
+  });
+
+  test("Contacto do token", async () => {
+    const decrypted = extrairContactoDoToken(token);
+    expect(decrypted).toEqual(email);
   });
 
   // test("hash válido", () => {

@@ -21,7 +21,7 @@ class RecuperaSenhaService {
 
     if (!usuarioExiste) return undefined;
 
-    const token = await gerarTokenRecuperacaoSenha(usuarioExiste.contacto);
+    const token = gerarTokenRecuperacaoSenha(usuarioExiste.contacto);
     const dataExpiracao = calcularValidadeDoToken();
 
     this.model.saveRecuperarSenhaToken({
