@@ -27,6 +27,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "jest": "^29.7.0",
+    "prisma": "^5.20.0",
     "ts-jest": "^29.2.5",
     "ts-node-dev": "^2.0.0"
   }
