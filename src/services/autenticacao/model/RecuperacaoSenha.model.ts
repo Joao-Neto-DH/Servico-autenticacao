@@ -18,6 +18,8 @@ class RecuperaSenhaModel implements IRecuperacaoSenhaModel {
       },
     });
 
+    await clientDB.$disconnect();
+
     return user.id;
   }
   saveRecuperarSenhaToken(

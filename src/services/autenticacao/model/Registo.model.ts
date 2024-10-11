@@ -24,6 +24,8 @@ class RegistoModel implements IRegistoModel {
       select: USER_SELECTED_FIELD,
     });
 
+    await clientDB.$disconnect();
+
     return {
       ...user,
       createdAt: dataFormat(created_at),
@@ -37,6 +39,8 @@ class RegistoModel implements IRegistoModel {
         contacto,
       },
     });
+
+    await clientDB.$disconnect();
 
     return user !== null;
   }

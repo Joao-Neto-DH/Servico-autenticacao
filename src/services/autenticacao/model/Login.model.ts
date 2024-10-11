@@ -23,6 +23,8 @@ class LoginModel implements ILoginModel {
       select: USER_SELECTED_FIELD,
     });
 
+    await clientDB.$disconnect();
+
     if (!usuario) return undefined;
 
     const { created_at, updated_at, ...user } = usuario;
