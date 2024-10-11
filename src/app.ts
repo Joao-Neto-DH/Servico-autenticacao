@@ -19,12 +19,18 @@ app.get("/", (_, res) => {
 
 app.use("/v1", router);
 
-app.use((err: AppError, _: Request, res: Response, next: NextFunction) => {
-  console.error(err.status);
-  res.status(err.status).send({
-    errorMessage: err.message,
-    status: err.status,
-  });
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  if (err instanceof AppError) {
+    return res.status(err.status).json({
+      errorMessage: err.message,
+      status: err.status,
+    });
+  } else {
+    return res.status(500).json({
+      errorMessage: "Erro no servidor",
+      status: 500,
+    });
+  }
 });
 
 export { app };

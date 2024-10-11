@@ -12,6 +12,7 @@ export interface ILoginResponse {
   status?: number;
   erro?: string | IFieldError[];
   usuario?: IUsuario;
+  descricao_erro?: string;
 }
 
 class LoginController {
@@ -24,7 +25,11 @@ class LoginController {
     // 1- validar os dados
     // 2- logar usuário
     const user = await this.service.logar(data);
-    return { statusMessage: user ? "OK" : "ERROR", usuario: user };
+    return {
+      statusMessage: user ? "OK" : "ERROR",
+      descricao_erro: user ? undefined : "Credenciais inválidas",
+      usuario: user,
+    };
   }
 }
 

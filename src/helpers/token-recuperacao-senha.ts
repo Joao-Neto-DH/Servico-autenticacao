@@ -10,7 +10,7 @@ import { envConfig } from "../config/env-config";
 
 export function gerarTokenRecuperacaoSenha(usuarioContacto: string) {
   const algorithm = "aes-192-cbc";
-  const password = envConfig().TOKEN_RECUPERACAO_PASSWORD;
+  const password = envConfig().TOKEN_RECUPERACAO_PASSWORD!;
 
   // const encrypted: string = await new Promise((resolve, reject) => {
   //   // First, we'll generate the key. The key length is dependent on the algorithm.
@@ -38,7 +38,7 @@ export function gerarTokenRecuperacaoSenha(usuarioContacto: string) {
   // });
 
   // return encrypted;
-  const salt = envConfig().TOKEN_RECUPERACAO_SALT;
+  const salt = envConfig().TOKEN_RECUPERACAO_SALT!;
   // const passphrase = "password";
 
   const key = scryptSync(password, salt, 24);
@@ -71,8 +71,8 @@ export function checkIsTokenValido(dataExpiracao: Date) {
 
 export function extrairContactoDoToken(token: string) {
   const algorithm = "aes-192-cbc";
-  const password = envConfig().TOKEN_RECUPERACAO_PASSWORD;
-  const salt = envConfig().TOKEN_RECUPERACAO_SALT;
+  const password = envConfig().TOKEN_RECUPERACAO_PASSWORD!;
+  const salt = envConfig().TOKEN_RECUPERACAO_SALT!;
 
   const key = scryptSync(password, salt, 24);
   const ivPosition = {
