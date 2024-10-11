@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
 import { clientDB } from "../../../config/db-connector";
+import { dataFormat } from "../../../helpers/format-data";
 import ILoginModel, { IUsuario } from "./ILogin.model";
 
 const USER_SELECTED_FIELD = {
@@ -29,8 +29,8 @@ class LoginModel implements ILoginModel {
 
     return {
       ...user,
-      createdAt: dayjs(created_at).format("DD/MM/YYYY"),
-      updatedAt: dayjs(updated_at).format("DD/MM/YYYY"),
+      createdAt: dataFormat(created_at),
+      updatedAt: dataFormat(updated_at),
       lastLogin: "",
     };
   }

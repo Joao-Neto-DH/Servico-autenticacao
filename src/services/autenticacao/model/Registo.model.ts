@@ -1,7 +1,7 @@
-import dayjs from "dayjs";
 import { clientDB } from "../../../config/db-connector";
 import { IRegistoRequest } from "../../../controllers/autenticacao/registo";
 import IRegistoModel, { IUsuario } from "./IRegisto.model";
+import { dataFormat } from "../../../helpers/format-data";
 
 const USER_SELECTED_FIELD = {
   id: true,
@@ -26,8 +26,8 @@ class RegistoModel implements IRegistoModel {
 
     return {
       ...user,
-      createdAt: dayjs(created_at).format("DD/MM/YYYY"),
-      updatedAt: dayjs(updated_at).format("DD/MM/YYYY"),
+      createdAt: dataFormat(created_at),
+      updatedAt: dataFormat(updated_at),
       lastLogin: "",
     };
   }
