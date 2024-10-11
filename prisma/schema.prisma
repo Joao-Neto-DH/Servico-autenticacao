@@ -12,3 +12,31 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+enum Gender {
+  M
+  F
+}
+
+model User {
+  id       String @id @default(uuid())
+  nome     String @db.VarChar(24)
+  contacto String @unique
+  senha    String
+  genero   Gender
+
+  session Session[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Session {
+  id            String @id @default(uuid())
+  user_agent    String
+  session_token String @unique
+
+  created_at DateTime @default(now())
+  User       User?    @relation(fields: [userId], references: [id])
+  userId     String?
+}
