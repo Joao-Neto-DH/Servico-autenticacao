@@ -1,14 +1,24 @@
+import { clientDB } from "../../../config/db-connector";
 import IRecuperacaoSenhaModel, {
   IUsuarioRecuperaSenha,
 } from "./IRecuperacaoSenha.model";
 
 class RecuperaSenhaModel implements IRecuperacaoSenhaModel {
   constructor() {}
-  actualizarNovaSenha(
+  async actualizarNovaSenha(
     contactoUsuario: string,
     senhaEncriptada: string
   ): Promise<string> {
-    throw new Error("Method not implemented.");
+    const user = await clientDB.user.update({
+      data: {
+        senha: senhaEncriptada,
+      },
+      where: {
+        contacto: contactoUsuario,
+      },
+    });
+
+    return user.id;
   }
   saveRecuperarSenhaToken(
     usuarioRecuperaSenha: IUsuarioRecuperaSenha
