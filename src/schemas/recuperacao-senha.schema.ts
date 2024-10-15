@@ -22,7 +22,7 @@ export const recuperarSenhaSchema = z.object({
         ),
       {
         message:
-          "senha deve ter pelo: 1 caracter maiúsculo\n1 caracter minúsculo\n1 número\n1 mínimo de 8 caracteres\n16 caracteres no máximo",
+          "senha deve ter pelo: 1 caracter maiúsculo\n1 caracter minúsculo\n1 número\n1 caracter especial\n1 mínimo de 8 caracteres\n16 caracteres no máximo",
       }
     ),
 });
