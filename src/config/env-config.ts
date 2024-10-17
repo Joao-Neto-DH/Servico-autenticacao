@@ -3,6 +3,9 @@ export function envConfig() {
     PORT: Number(process.env.PORT),
     TOKEN_RECUPERACAO_PASSWORD: process.env.TOKEN_RECUPERACAO_PASSWORD,
     TOKEN_RECUPERACAO_SALT: process.env.TOKEN_RECUPERACAO_SALT,
+    TOKEN_PROVEDOR_EMAIL: process.env.TOKEN_PROVEDOR_EMAIL,
+    EMAIL_EMISSOR: process.env.EMAIL_EMISSOR,
+    EMAIL_NOME_EMISSOR: process.env.EMAIL_NOME_EMISSOR,
   };
 }
 
