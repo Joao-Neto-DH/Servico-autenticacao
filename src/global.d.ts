@@ -6,5 +6,6 @@ namespace NodeJS {
     TOKEN_PROVEDOR_EMAIL: string;
     EMAIL_EMISSOR: string;
     EMAIL_NOME_EMISSOR: string;
+    SESSION_PASSWORD: string;
   }
 }

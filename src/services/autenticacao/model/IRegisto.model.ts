@@ -1,6 +1,7 @@
 import { IRegistoRequest } from "../../../controllers/autenticacao/registo";
 
 export interface IUsuario {
+  id: string;
   contacto: string;
   nome: string;
   genero: string;

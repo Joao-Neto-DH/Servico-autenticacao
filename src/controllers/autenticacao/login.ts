@@ -12,6 +12,7 @@ export interface ILoginResponse {
   status?: number;
   erro?: string | IFieldError[];
   usuario?: IUsuario;
+  accessToken?: string;
   descricao_erro?: string;
 }
 
@@ -28,7 +29,8 @@ class LoginController {
     return {
       statusMessage: user ? "OK" : "ERROR",
       descricao_erro: user ? undefined : "Credenciais inválidas",
-      usuario: user,
+      usuario: user?.usuario,
+      accessToken: user?.accessToken,
     };
   }
 }

@@ -6,6 +6,7 @@ export function envConfig() {
     TOKEN_PROVEDOR_EMAIL: process.env.TOKEN_PROVEDOR_EMAIL,
     EMAIL_EMISSOR: process.env.EMAIL_EMISSOR,
     EMAIL_NOME_EMISSOR: process.env.EMAIL_NOME_EMISSOR,
+    SESSION_PASSWORD: process.env.SESSION_PASSWORD,
   };
 }
 

@@ -1,19 +1,24 @@
 import { IRegistoRequest } from "../../controllers/autenticacao/registo";
 import AppError from "../../helpers/app-error";
 import { encriptarSenha } from "../../helpers/encriptar-senha";
+import { loginToken } from "../../helpers/login-token";
 import IRegistoModel, { IUsuario } from "./model/IRegisto.model";
 
 export interface IRegistoService {
-  registar(usuario: IRegistoRequest): Promise<IUsuario>;
+  registar(
+    usuario: IRegistoRequest
+  ): Promise<{ usuario: IUsuario; accessToken: string } | undefined>;
 }
 
-class RegistoService {
+class RegistoService implements IRegistoService {
   constructor(private readonly model: IRegistoModel) {}
 
   /**
    * registar
    */
-  public async registar(usuario: IRegistoRequest): Promise<IUsuario> {
+  public async registar(
+    usuario: IRegistoRequest
+  ): Promise<{ usuario: IUsuario; accessToken: string } | undefined> {
     const isRegistado = await this.model.contactoJaExiste(usuario.contacto);
 
     if (isRegistado) {
@@ -30,7 +35,9 @@ class RegistoService {
       senha: senhaEncriptada,
     });
 
-    return newUsuario;
+    const accessToken = loginToken(newUsuario.id);
+
+    return { usuario: newUsuario, accessToken };
   }
 }
 
