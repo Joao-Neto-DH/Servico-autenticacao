@@ -1,52 +1,77 @@
 import { Router } from "express";
 import { autenticacao } from "../../controllers";
 import { IRegistoRequest } from "../../controllers/autenticacao/registo";
-import {
-  IRecuperaSenhaRequest,
-  IRecuperaSenhaSolicitacaoRequest,
-} from "../../controllers/autenticacao/recupera-senha";
+import { IRecuperaSenhaRequest } from "../../controllers/autenticacao/recupera-senha";
 import { ILoginRequest } from "../../controllers/autenticacao/login";
+import { usuarioRegistoSchema } from "../../schemas/registo-usuario.schema";
+import { loginSchema } from "../../schemas/login.schema";
+import {
+  recuperarSenhaSchema,
+  recuperarSenhaSchemaContacto,
+} from "../../schemas/recuperacao-senha.schema";
 
 const autenticacaoRouter = Router();
 
 autenticacaoRouter.post("/cria-conta", async (req, res) => {
   const data: IRegistoRequest = req.body;
 
-  const resposta = await autenticacao.registoController.execute(data);
+  try {
+    const usuario = usuarioRegistoSchema.parse(data);
+    const resposta = await autenticacao.registoController.execute(usuario);
 
-  return res.json(resposta);
+    return res.json(resposta);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
 });
 
 autenticacaoRouter.post("/entrar", async (req, res) => {
   const data: ILoginRequest = req.body;
 
-  const resposta = await autenticacao.loginController.execute(data);
+  try {
+    const loginData = loginSchema.parse(data);
 
-  return res.json(resposta);
+    const resposta = await autenticacao.loginController.execute(loginData);
+    return res.json(resposta);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
 });
 
 autenticacaoRouter.get("/recupera-senha/:contacto", async (req, res) => {
-  const data: IRecuperaSenhaSolicitacaoRequest = {
-    contacto: req.params.contacto,
-  };
+  try {
+    const contacto = recuperarSenhaSchemaContacto.parse(req.params.contacto);
 
-  const resposta = await autenticacao.recuperaSenhaController.solitacao(data);
-
-  return res.json(resposta);
+    const resposta = await autenticacao.recuperaSenhaController.solitacao({
+      contacto,
+    });
+    return res.json(resposta);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
 });
 
 autenticacaoRouter.patch(
   "/recupera-senha/nova-senha/:token",
   async (req, res) => {
-    const data: IRecuperaSenhaRequest = req.body;
+    const { senha }: IRecuperaSenhaRequest = req.body;
     const { token } = req.params;
 
-    const resposta = await autenticacao.recuperaSenhaController.execute(
-      data,
-      token
-    );
+    try {
+      const dataParsed = recuperarSenhaSchema.parse({
+        senha,
+        token,
+      });
 
-    return res.json(resposta);
+      const resposta = await autenticacao.recuperaSenhaController.execute(
+        { senha: dataParsed.senha },
+        dataParsed.senha
+      );
+
+      return res.json(resposta);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   }
 );
 
