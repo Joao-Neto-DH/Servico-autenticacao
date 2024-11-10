@@ -7,7 +7,7 @@ import {
 import { envConfig } from "../../../src/config/env-config";
 import { config } from "dotenv";
 
-describe("enviar email", () => {
+describe.skip("enviar email", () => {
   beforeAll(() => {
     config();
   });

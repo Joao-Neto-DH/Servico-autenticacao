@@ -1,1 +1,29 @@
 # Microservice de provedor de autenticação
+
+Provedor de autenticação de usuários
+
+## Funcionalidades
+
+Funcionalidades implementas ou por implementar no sistema
+
+<table>
+    <thead>
+        <tr>
+            <th>Nome funcionalidade</th>
+            <th>Descrição</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Criar conta</td>
+            <td>Criação de conta do usuário</td>
+            <td>FEITO</td>
+        </tr>
+        <tr>
+            <td>LOGIN</td>
+            <td>Permite fazer login do usuário</td>
+            <td>FEITO</td>
+        </tr>
+    </tbody>
+</table>

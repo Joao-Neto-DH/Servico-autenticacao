@@ -2,8 +2,13 @@ import { describe, expect, test, beforeAll } from "@jest/globals";
 import RegistoController from "../../../src/controllers/autenticacao/registo";
 import { IUsuario } from "../../../src/services/autenticacao/model/IRegisto.model";
 import RegistoService from "../../../src/services/autenticacao/Registo.service";
+import { config } from "dotenv";
 
 describe("Controller registo", () => {
+  beforeAll(() => {
+    config();
+  });
+
   const users: IUsuario[] = [];
 
   const service: RegistoService = new RegistoService({
@@ -12,6 +17,7 @@ describe("Controller registo", () => {
     },
     async registarUsuario(usuario) {
       const user = {
+        id: "1",
         ...usuario,
         createdAt: new Date().toString(),
         updatedAt: new Date().toString(),
