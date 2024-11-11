@@ -48,7 +48,7 @@ Funcionalidades implementas ou por implementar no sistema
         <tr>
             <td>Gerenciar sessão</td>
             <td>Permite ao usuário gerir sessões</td>
-            <td>❌</td>
+            <td>✔</td>
         </tr>
         <tr>
             <td>Recuperação de conta</td>
