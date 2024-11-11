@@ -9,6 +9,8 @@ import {
   recuperarSenhaSchema,
   recuperarSenhaSchemaContacto,
 } from "../../schemas/recuperacao-senha.schema";
+import { loginMiddleware } from "../../middlewares/login-middleware";
+import { perfilController } from "../../controllers/autenticacao";
 
 const autenticacaoRouter = Router();
 
@@ -74,5 +76,13 @@ autenticacaoRouter.patch(
     }
   }
 );
+
+autenticacaoRouter.get("/conta", loginMiddleware, async (req, res) => {
+  const userId = JSON.parse(req.headers.userId?.toString()!);
+
+  const perfil = await perfilController.execute(userId);
+
+  return res.json(perfil);
+});
 
 export default autenticacaoRouter;

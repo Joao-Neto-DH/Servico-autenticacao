@@ -20,8 +20,8 @@ function loginMiddleware(req: Request, res: Response, next: NextFunction) {
   }
 
   try {
-    const userId = validateLoginToken(token);
-    res.header("userId", JSON.stringify(userId));
+    const { usuarioID: userId } = validateLoginToken(token);
+    req.headers.userId = JSON.stringify(userId);
 
     return next();
   } catch (error) {
