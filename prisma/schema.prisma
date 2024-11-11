@@ -34,7 +34,7 @@ model User {
 model Session {
   id            String @id @default(uuid())
   user_agent    String
-  session_token String @unique
+  session_token String @unique @db.VarChar(length: 250)
 
   created_at DateTime @default(now())
   User       User?    @relation(fields: [userId], references: [id])

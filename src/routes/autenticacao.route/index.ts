@@ -29,11 +29,15 @@ autenticacaoRouter.post("/cria-conta", async (req, res) => {
 
 autenticacaoRouter.post("/entrar", async (req, res) => {
   const data: ILoginRequest = req.body;
+  const userAgent = req.headers["user-agent"];
 
   try {
     const loginData = loginSchema.parse(data);
 
-    const resposta = await autenticacao.loginController.execute(loginData);
+    const resposta = await autenticacao.loginController.execute({
+      ...loginData,
+      userAgent,
+    });
     return res.json(resposta);
   } catch (error) {
     return res.status(400).json(error);

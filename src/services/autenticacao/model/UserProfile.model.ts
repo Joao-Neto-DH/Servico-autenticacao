@@ -13,7 +13,10 @@ class UserProfileModel implements IUserProfileModel {
         genero: true,
         id: true,
         nome: true,
-        session: true,
+        session: {
+          orderBy: { created_at: "desc" },
+          select: { id: true, user_agent: true, created_at: true },
+        },
         updated_at: true,
       },
     });

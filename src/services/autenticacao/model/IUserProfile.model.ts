@@ -10,9 +10,7 @@ export type TProfile = {
   session: {
     id: string;
     created_at: Date;
-    userId: string | null;
     user_agent: string;
-    session_token: string;
   }[];
 } | null;
 

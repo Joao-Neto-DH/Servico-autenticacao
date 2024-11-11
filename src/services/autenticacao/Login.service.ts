@@ -3,6 +3,7 @@ import { checkPassword } from "../../helpers/check-password";
 import { loginToken } from "../../helpers/login-token";
 import ILoginModel from "./model/ILogin.model";
 import { IUsuario } from "./model/IRegisto.model";
+import SessionModel from "./model/Session.model";
 
 class LoginService {
   constructor(private readonly model: ILoginModel) {}
@@ -14,6 +15,15 @@ class LoginService {
 
     if (user && checkPassword(user.senha, usuario.senha)) {
       const token = loginToken(user.id);
+
+      const session = new SessionModel();
+
+      // const sessionId =
+      await session.execute({
+        session_token: token,
+        user_agent: usuario.userAgent || "",
+        userId: user.id,
+      });
 
       const { senha, ...loginUser } = user;
 

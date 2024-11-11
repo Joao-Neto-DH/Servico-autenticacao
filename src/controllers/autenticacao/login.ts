@@ -5,6 +5,7 @@ import { IUsuario } from "../../services/autenticacao/model/IRegisto.model";
 export interface ILoginRequest {
   senha: string;
   contacto: string;
+  userAgent?: string;
 }
 
 export interface ILoginResponse {
