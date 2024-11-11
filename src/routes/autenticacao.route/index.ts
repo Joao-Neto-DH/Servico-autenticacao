@@ -10,7 +10,11 @@ import {
   recuperarSenhaSchemaContacto,
 } from "../../schemas/recuperacao-senha.schema";
 import { loginMiddleware } from "../../middlewares/login-middleware";
-import { perfilController } from "../../controllers/autenticacao";
+import {
+  alterarSenhaController,
+  perfilController,
+} from "../../controllers/autenticacao";
+import { senhaSchema } from "../../schemas/senha.schema";
 
 const autenticacaoRouter = Router();
 
@@ -88,5 +92,28 @@ autenticacaoRouter.get("/conta", loginMiddleware, async (req, res) => {
 
   return res.json(perfil);
 });
+
+autenticacaoRouter.patch(
+  "/alterar-senha",
+  loginMiddleware,
+  async (req, res) => {
+    const userId = JSON.parse(req.headers.userId?.toString()!);
+    const body = req.body;
+
+    try {
+      const data = senhaSchema.parse(body);
+
+      const response = await alterarSenhaController.execute({
+        nova_senha: data["nova-senha"],
+        senha_actual: data["senha-actual"],
+        usuarioId: userId,
+      });
+
+      return res.status(response.status || 200).json(response);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
+);
 
 export default autenticacaoRouter;

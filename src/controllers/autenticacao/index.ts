@@ -3,6 +3,7 @@ import {
   perfilService,
   recuperacaoSenhaService,
   registoService,
+  userSenhaService,
 } from "../../services/autenticacao";
 import AlterarSenhaController from "./alterar-senha";
 import LoginController from "./login";
@@ -16,9 +17,7 @@ const recuperaSenhaController = new RecuperaSenhaController(
 );
 
 // alterar senha
-const alterarSenhaController = new AlterarSenhaController(
-  recuperaSenhaController
-);
+const alterarSenhaController = new AlterarSenhaController(userSenhaService);
 
 // registo do usuário
 const registoController = new RegistoController(registoService);
