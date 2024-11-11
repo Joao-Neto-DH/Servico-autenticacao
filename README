@@ -38,7 +38,7 @@ Funcionalidades implementas ou por implementar no sistema
         <tr>
             <td>Actualização de credenciais</td>
             <td>Permite o usuário alterar seus dados</td>
-            <td>❌</td>
+            <td>✔</td>
         </tr>
         <tr>
             <td>Upload de foto de perfil</td>
