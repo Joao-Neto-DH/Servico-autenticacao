@@ -1,4 +1,7 @@
+import { IUsuario } from "./ILogin.model";
+
 export default interface IRecuperacaoSenhaModel {
+  getUsuarioPeloContacto(usuario: string): Promise<IUsuario | undefined>;
   saveRecuperarSenhaToken(
     usuarioRecuperaSenha: IUsuarioRecuperaSenha
   ): Promise<boolean>;

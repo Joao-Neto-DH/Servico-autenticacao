@@ -1,4 +1,6 @@
-interface ILoginModel {
+import ISessionModel from "./ISession.model";
+
+interface ILoginModel extends ISessionModel {
   getUsuarioPeloContacto(usuario: string): Promise<IUsuario | undefined>;
 }
 

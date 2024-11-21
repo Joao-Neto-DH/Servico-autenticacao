@@ -2,6 +2,7 @@ import { describe, test, beforeAll, expect } from "@jest/globals";
 import { config } from "dotenv";
 import { IUsuario } from "../../src/services/autenticacao/model/ILogin.model";
 import LoginService from "../../src/services/autenticacao/Login.service";
+import RecuperaSenhaService from "../../src/services/autenticacao/RecuperaSenha.service";
 
 describe("Serviço de login", () => {
   const user: IUsuario = {
@@ -27,6 +28,9 @@ describe("Serviço de login", () => {
       getUsuarioPeloContacto(contacto) {
         return Promise.resolve(user);
       },
+      execute({ session_token, user_agent, userId }) {
+        return null!;
+      },
     });
 
     const response = await loginService.logar({
@@ -35,5 +39,42 @@ describe("Serviço de login", () => {
     });
 
     expect(response).not.toBeUndefined();
+  });
+
+  test("Recuperar senha de usuários", async () => {
+    let gToken: string;
+    let gExpiraEm: Date;
+
+    const recuperacao = new RecuperaSenhaService({
+      actualizarNovaSenha(contactoUsuario, senhaEncriptada) {
+        user.senha = senhaEncriptada;
+        return Promise.resolve(user.id);
+      },
+
+      getUsuarioPeloContacto(usuario) {
+        return Promise.resolve(user);
+      },
+
+      getRecuperarSenhaToken(usuarioContacto) {
+        return Promise.resolve({ expiraEm: gExpiraEm, token: gToken });
+      },
+
+      saveRecuperarSenhaToken(usuarioRecuperaSenha) {
+        gToken = usuarioRecuperaSenha.token;
+        gExpiraEm = usuarioRecuperaSenha.expiraEm;
+
+        return Promise.resolve(true);
+      },
+    });
+
+    const pedidoSalvo = await recuperacao.salvarRecuperacaoSenha(user.contacto);
+
+    console.log("Token de recuperação:", pedidoSalvo);
+
+    const alterado = await recuperacao.recuperarSenha(gToken!, "novaSenha");
+
+    console.log("Senha alterada:", alterado, "\nNova senha:", user.senha);
+
+    expect(alterado).toBeTruthy();
   });
 });

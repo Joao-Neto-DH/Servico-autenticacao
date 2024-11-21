@@ -16,10 +16,8 @@ class LoginService {
     if (user && checkPassword(user.senha, usuario.senha)) {
       const token = loginToken(user.id);
 
-      const session = new SessionModel();
-
-      // const sessionId =
-      await session.execute({
+      // salvar sessão
+      await this.model.execute({
         session_token: token,
         user_agent: usuario.userAgent || "",
         userId: user.id,

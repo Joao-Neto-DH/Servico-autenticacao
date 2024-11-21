@@ -1,4 +1,3 @@
-import { modelLogin } from ".";
 import { encriptarSenha } from "../../helpers/encriptar-senha";
 import {
   calcularValidadeDoToken,
@@ -15,7 +14,7 @@ class RecuperaSenhaService {
    * salvarRecuperacaoSenha
    */
   public async salvarRecuperacaoSenha(usuarioContacto: string) {
-    const usuarioExiste = await modelLogin.getUsuarioPeloContacto(
+    const usuarioExiste = await this.model.getUsuarioPeloContacto(
       usuarioContacto
     );
 
@@ -38,9 +37,9 @@ class RecuperaSenhaService {
   public async recuperarSenha(token: string, novaSenha: string) {
     const pedidoRecuperacao = await this.model.getRecuperarSenhaToken(token);
 
-    const isTokenNotExpired = checkIsTokenValido(pedidoRecuperacao.expiraEm);
+    const isTokenValido = checkIsTokenValido(pedidoRecuperacao.expiraEm);
 
-    if (isTokenNotExpired) {
+    if (!isTokenValido) {
       return false;
     }
 

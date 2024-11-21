@@ -1,10 +1,16 @@
+import { modelLogin } from "..";
 import { clientDB } from "../../../config/db-connector";
+import { IUsuario } from "./ILogin.model";
 import IRecuperacaoSenhaModel, {
   IUsuarioRecuperaSenha,
 } from "./IRecuperacaoSenha.model";
 
 class RecuperaSenhaModel implements IRecuperacaoSenhaModel {
   constructor() {}
+  async getUsuarioPeloContacto(usuario: string): Promise<IUsuario | undefined> {
+    return await modelLogin.getUsuarioPeloContacto(usuario);
+  }
+
   async actualizarNovaSenha(
     contactoUsuario: string,
     senhaEncriptada: string
