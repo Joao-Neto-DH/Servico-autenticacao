@@ -11,7 +11,11 @@
     "files": true,
 
     "compilerOptions": {
-      "moduleResolution": "nodenext"
+      "moduleResolution": "nodenext",
+      "lib": ["esnext"],
+      "noEmit": true,
+      "isolatedModules": true,
+      "allowImportingTsExtensions": true
     }
   }
 }
