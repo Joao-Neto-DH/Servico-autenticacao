@@ -44,6 +44,7 @@ describe("Autenticação de apps de terceiros", () => {
     }).rejects.toThrow();
   });
 
+  // por implementar
   test("Adicionar permissção na aplicação", async () => {
     expect(async () => {
       await ras.registar({

@@ -1,4 +1,5 @@
 import AppError from "../../../helpers/app-error";
+import { GeradorSenha } from "../../../helpers/gerador-senha";
 import {
   AplicacaoRequest,
   IRegistoAplicacaoModel,
@@ -15,10 +16,17 @@ class RegistoAplicacaoService implements IRegistoAplicacaoService {
     const app = await this.model.pegarAplicacao(data.nome);
 
     if (app !== undefined) {
-      throw new AppError(`O app ${data.nome} já existe`);
+      throw new AppError(
+        `Já existe um aplicativo com o nome ${data.nome}. Por favor defina um outro nome`
+      );
     }
 
-    return await this.model.salvar(data);
+    const client_id = GeradorSenha.gerar();
+    const app_id = GeradorSenha.gerar({ tamanho: 8 });
+
+    const aplicacao = { ...data, client_id, app_id };
+
+    return await this.model.salvar(aplicacao);
   }
 }
 

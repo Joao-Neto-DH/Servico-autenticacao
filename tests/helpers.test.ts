@@ -9,6 +9,7 @@ import {
 } from "../src/helpers/token-recuperacao-senha";
 import { config } from "dotenv";
 import dayjs from "dayjs";
+import { GeradorSenha } from "../src/helpers/gerador-senha";
 
 describe("Funções de helpers", () => {
   test("encriptar senha", () => {
@@ -25,6 +26,24 @@ describe("Funções de helpers", () => {
     const passwordMatch = checkPassword(encryptedSenha, senha);
 
     expect(passwordMatch).toBeTruthy();
+  });
+
+  test("gerar código numérico de 6 dígitos", () => {
+    const codigo = GeradorSenha.gerar();
+
+    expect(codigo).toMatch(/\d{6}/);
+  });
+
+  test("gerar código de 6 dígitos", () => {
+    const codigo = GeradorSenha.gerar();
+
+    expect(codigo.length).toBe(6);
+  });
+
+  test("gerar código de 8 dígitos", () => {
+    const codigo = GeradorSenha.gerar({ tamanho: 8 });
+
+    expect(codigo.length).toBe(8);
   });
 });
 
