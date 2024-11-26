@@ -1,6 +1,6 @@
-import { IPegarAplicacaoPeloNome } from "./IPegarAplicacao.mode";
+import { IPegarAplicacaoPeloNomeModel } from "./IPegarAplicacao.mode";
 
-export interface IRegistoAplicacaoModel extends IPegarAplicacaoPeloNome {
+export interface IRegistoAplicacaoModel extends IPegarAplicacaoPeloNomeModel {
   salvar(data: AplicacaoRequest): Promise<{}>;
 }
 
