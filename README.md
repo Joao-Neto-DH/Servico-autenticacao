@@ -1,5 +1,7 @@
 # Microservice de provedor de autenticação
 
+[![Run build](https://github.com/Joao-Neto-DH/Servico-autenticacao/actions/workflows/build.yml/badge.svg?event=push)](https://github.com/Joao-Neto-DH/Servico-autenticacao/actions/workflows/build.yml?event=push) [![Run tests](https://github.com/Joao-Neto-DH/Servico-autenticacao/actions/workflows/tests.yml/badge.svg)](https://github.com/Joao-Neto-DH/Servico-autenticacao/actions/workflows/tests.yml)
+
 Provedor de autenticação de usuários
 
 ## Funcionalidades
