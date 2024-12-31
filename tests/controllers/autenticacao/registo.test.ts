@@ -6,7 +6,7 @@ import { config } from "dotenv";
 
 describe("Controller registo", () => {
   beforeAll(() => {
-    config();
+    config({ path: ".env.test" });
   });
 
   const users: IUsuario[] = [];
