@@ -20,7 +20,7 @@ describe("Serviço de login", () => {
   };
 
   beforeAll(() => {
-    config();
+    config({ path: ".env.test" });
   });
 
   test("Login de usuários", async () => {

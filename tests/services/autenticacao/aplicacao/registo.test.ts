@@ -1,12 +1,14 @@
 import { describe, test, expect, beforeAll } from "@jest/globals";
 import RegistoAplicacaoService from "../../../../src/services/autenticacao/aplicacao/RegistoAplicacao.service";
 import { AplicacaoRequest } from "../../../../src/services/autenticacao/aplicacao/model/IRegistoAplicacao.model";
+import { config } from "dotenv";
 
 describe("Autenticação de apps de terceiros", () => {
   const apps: (AplicacaoRequest & { id: string })[] = [];
   let ras: RegistoAplicacaoService;
 
   beforeAll(function () {
+    config({ path: ".env.test" });
     ras = new RegistoAplicacaoService({
       salvar(data) {
         apps.push({ ...data, id: apps.length.toString() });

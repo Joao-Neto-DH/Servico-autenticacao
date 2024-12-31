@@ -52,7 +52,7 @@ describe("Funções de helpers de recuperação de senha", () => {
   let token = "";
 
   beforeAll(() => {
-    config();
+    config({ path: ".env.test" });
 
     token = gerarTokenRecuperacaoSenha(email);
   });

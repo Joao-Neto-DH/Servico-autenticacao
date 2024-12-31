@@ -9,7 +9,7 @@ import { config } from "dotenv";
 
 describe.skip("enviar email", () => {
   beforeAll(() => {
-    config();
+    config({ path: ".env.test" });
   });
 
   test("enviar para um", async () => {
